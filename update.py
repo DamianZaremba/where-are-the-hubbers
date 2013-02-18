@@ -8,8 +8,8 @@ from BeautifulSoup import BeautifulSoup
 
 ABOUT_PAGE = "https://github.com/about/team"
 USER_API = "https://api.github.com/users/%s"
-OPT_ARGS = "client_id=something&" \
-    "client_secret=something"
+OPT_ARGS = "client_id=3dff62cfad4bb4f9578c&" \
+    "client_secret=98be428216f724ee51647be4c159105c78544a6e"
 
 formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
 stdout_handler = logging.StreamHandler(sys.stdout)
