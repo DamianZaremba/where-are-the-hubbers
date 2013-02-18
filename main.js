@@ -28,7 +28,7 @@ $(document).ready(function(){
 			content.setAttribute('class', 'infowindow');
 			content.innerHTML = "<h1>@" + profile['username'] + "</h1>" + 
 								"<p><img src='" + profile['avatar'] + "' /></p>" +
-								"<p>" + profile['name'] + "</p>";
+								"<p>" + profile['name'] + "</p>" +
 								"<p><a href='http://github.com/" + profile['username'] + ">GH Profile</a></p>";
 
 			var infowindow = new google.maps.InfoWindow({
