@@ -22,6 +22,7 @@ logger.addHandler(stdout_handler)
 def get_hubbers():
     '''
     Parse the about page since this isn't exposed via the api :(
+    Returns a list of usernames pulled from the href
     '''
     hubbers = []
 
@@ -42,6 +43,9 @@ def get_hubbers():
 
 
 def convert_location_to_latlng(location):
+    '''
+    Takes a location name and returns the lat/lng as a tuple
+    '''
     loc = quote(location)
     try:
         req = urllib2.Request("http://maps.googleapis.com/maps/api/geocode/"
@@ -59,6 +63,9 @@ def convert_location_to_latlng(location):
 
 
 def get_user_profile(user):
+    '''
+    Takes a username and returns their profile (name/nick/avatar/location)
+    '''
     user = quote(user)
     try:
         req = urllib2.Request('%s?%s' % (USER_API % user, OPT_ARGS))
@@ -84,6 +91,9 @@ def get_user_profile(user):
     return False
 
 if __name__ == "__main__":
+    '''
+    This logic should be in a function but oh well
+    '''
     hubbers = {}
 
     for hubber in get_hubbers():
