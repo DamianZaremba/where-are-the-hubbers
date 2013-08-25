@@ -8,8 +8,8 @@ from BeautifulSoup import BeautifulSoup
 
 ABOUT_PAGE = "https://github.com/about/team"
 USER_API = "https://api.github.com/users/%s"
-OPT_ARGS = "client_id=3dff62cfad4bb4f9578c&" \
-    "client_secret=98be428216f724ee51647be4c159105c78544a6e"
+OPT_ARGS = "client_id=96fe55cdb1593e60caae&" \
+    "client_secret=87f5e9f3b4a3221dd8048644935ccde5e1f92ffd"
 
 formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
 stdout_handler = logging.StreamHandler(sys.stdout)
@@ -36,7 +36,7 @@ def get_hubbers():
     soup = BeautifulSoup(raw_data)
     employees = soup.find('div', attrs={'class': 'employees'})
     for employee in employees.findAll('div',
-                                      attrs={'class': 'employee_container'}):
+                                      attrs={'class': 'employee'}):
         hubbers.append(employee.find('a')['href'].split('/')[-1])
 
     return hubbers
@@ -56,7 +56,7 @@ def convert_location_to_latlng(location):
         return False
 
     data = json.loads(raw_data)
-    if len(data) > 0:
+    if 'results' in data > 0 and len(data['results']) > 0:
         lng = data['results'][0]['geometry']['location']['lng']
         lat = data['results'][0]['geometry']['location']['lat']
         return (lng, lat)
@@ -83,9 +83,10 @@ def get_user_profile(user):
 
         if 'location' in data.keys() and data['location']:
             loc = data['location'].encode('utf-8')
-            (lng, lat) = convert_location_to_latlng(loc)
-            profile['location_lat'] = lat
-            profile['location_lng'] = lng
+            res = convert_location_to_latlng(loc)
+            if res:
+                profile['location_lat'] = res[0]
+                profile['location_lng'] = res[1]
 
             return profile
     return False
