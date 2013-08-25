@@ -85,8 +85,8 @@ def get_user_profile(user):
             loc = data['location'].encode('utf-8')
             res = convert_location_to_latlng(loc)
             if res:
-                profile['location_lat'] = res[0]
-                profile['location_lng'] = res[1]
+                profile['location_lat'] = res[1]
+                profile['location_lng'] = res[0]
 
             return profile
     return False
